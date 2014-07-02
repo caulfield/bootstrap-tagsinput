@@ -299,9 +299,15 @@
         self.$input.focus();
       }, self));
 
-      self.$container.on('keydown', 'input', $.proxy(function(event) {
+      self.$container.on('keydown paste', 'input', $.proxy(function(event) {
         var $input = $(event.target),
             $inputWrapper = self.findInputWrapper();
+
+        if (event.type == 'paste') {
+          setTimeout(function() {
+            $input.trigger('keydown');
+          }, 100);
+        }
 
         switch (event.which) {
           // BACKSPACE
